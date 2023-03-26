@@ -6,12 +6,13 @@ public class Character : MonoBehaviour
 {
     private bool moveWait = false;
     protected Animator animController;
-    protected float speed = 5;
+    protected virtual float speed { get; set; } = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         animController = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame

@@ -7,7 +7,7 @@ public class Druid : Character
     [SerializeField]private GameObject druidHuman;
     [SerializeField]private GameObject druidAnimal;
 
-
+    protected override float speed { get; set; } = 10f;
 
     protected override IEnumerator MoveRoutine(Vector3 direction)
     {
