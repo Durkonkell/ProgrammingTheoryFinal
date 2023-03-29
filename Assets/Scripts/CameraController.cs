@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]private GameObject player;
-    private Vector3 offset = new Vector3(0, 12, -9);
+    private Vector3 offset = new Vector3(0, 14, -8);
 
     // Update is called once per frame
     void LateUpdate()

@@ -1,11 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
-    private float baseSpeed = 5;
+    private float baseSpeed = 6;
     private Animator animController;
+
+    public event Action OnInteract;
+
+    public GameObject invChicken;
+    public GameObject invBarrier;
+    public GameObject invHerb;
+
+    // ENCAPSULATION
+    public GameObject objectInRange { get; private set; } = null;
+
+    private void Awake()
+    {
+        invChicken = transform.GetChild(5).gameObject;
+        invBarrier = transform.GetChild(6).gameObject;
+        invHerb = transform.GetChild(7).gameObject;
+    }
 
     private void Start()
     {
@@ -16,6 +33,55 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+        Interact();
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.Log("PickupType.Pickup = " + PickupType.Pickup);
+        }
+    }
+
+    void Interact()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && OnInteract != null && objectInRange != null)
+        {
+            OnInteract();
+
+            switch (PickupType.Pickup)
+            {
+                case PickupTypes.Chicken:
+                    Debug.Log("Picked up chicken");
+                    objectInRange = null;
+                    invChicken.SetActive(true);
+                    animController.SetInteger("WeaponType_int", 1);
+                    break;
+                case PickupTypes.Barrier:
+                    Debug.Log("Picked up barrier");
+                    objectInRange = null;
+                    invBarrier.SetActive(true);
+                    animController.SetInteger("WeaponType_int", 1);
+                    break;
+                case PickupTypes.Herb:
+                    Debug.Log("Picked up herb");
+                    objectInRange = null;
+                    invHerb.SetActive(true);
+                    animController.SetInteger("WeaponType_int", 1);
+                    break;
+                default:
+                    Debug.Log("No pickup found");
+                    break;
+            }
+        }
+    }
+
+    public void DropOff()
+    {
+        invChicken.SetActive(false);
+        invBarrier.SetActive(false);
+        invHerb.SetActive(false);
+
+        PickupType.Pickup = PickupTypes.None;
+        animController.SetInteger("WeaponType_int", 0);
     }
 
     void Move()
@@ -49,4 +115,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Pickup") || other.CompareTag("Character"))
+        {
+            objectInRange = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        objectInRange = null;
+    }
 }

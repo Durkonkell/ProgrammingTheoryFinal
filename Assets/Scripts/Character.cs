@@ -5,20 +5,27 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private bool moveWait = false;
+    protected bool moveEnabled = true;
     protected Animator animController;
-    protected virtual float speed { get; set; } = 5;
+    protected PlayerController player;
+
+    protected float speed = 5f;
+
+    [SerializeField] protected ParticleSystem victoryBoom;
+
 
     // Start is called before the first frame update
     void Start()
     {
         animController = GetComponent<Animator>();
-
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player.OnInteract += ConversationStart;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!moveWait)
+        if (!moveWait && moveEnabled)
         {
             StartCoroutine(Wander());
         }
@@ -31,7 +38,7 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(delay);
         int diceroll = Random.Range(1, 7);
         //Debug.Log("Dice Roll: " + diceroll);
-        if (diceroll > 3)
+        if (diceroll > 3 && moveEnabled)
         {
             Vector3 direction = RandomDirection();
             StartCoroutine(MoveRoutine(direction));
@@ -61,9 +68,20 @@ public class Character : MonoBehaviour
         }
     }
 
+    protected void ConversationStart()
+    {
+        if (player.objectInRange == gameObject)
+        {
+            Debug.Log("Attempted to start a conversation with " + gameObject.name);
+        }
+    }
+
     protected virtual void ObjectiveComplete()
     {
+        Debug.Log("Objective Complete called: " + gameObject.name);
+        animController.SetBool("Jump_b", true);
 
+        Instantiate(victoryBoom, transform.position, victoryBoom.transform.rotation);
     }
 
 }
