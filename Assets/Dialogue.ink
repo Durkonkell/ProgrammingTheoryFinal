@@ -13,14 +13,18 @@ Main Menu
 -> FARMER
 + Druid
 -> DRUID
++ Engineer
+-> ENGINEER
 + Escape Example
 -> escape
 + Increment chickens
  ~chickens++ 
  * Increment herbs
  ~herbs++
+ + Increment barriers
+ ~barriers++
 
-->Menu
+- ->Menu
 
 ===FARMER===
 // Put some conditional here to divert to Greet 2
@@ -78,6 +82,8 @@ F: Ho chick. Chick chick chick. Good chick.
 
 === DRUID ===
     {
+    - Herb_Complete:
+    -> Human
     - DRUID > 1:
     -> In_Progress
     }
@@ -89,7 +95,7 @@ N: The moose watches you approach. It doesn't seem spooked or agressive, but mer
 
 N: Unfortunately, you do not speak moose.
     * [Do you need help?] Is there something I can help you with?
-    * I suppose you've lost something?
+    * Are you looking for something?[] What... sort of thing could a moose possibly want?
 
 - M: DETERMINED MOOSE NOISES
 N: The moose locks eyes with you and appears to focus. At once, the world fades and you see before you a distinctive plant with bright yellow flowers.
@@ -110,15 +116,99 @@ N: The moose locks eyes with you and appears to focus. At once, the world fades 
 = In_Progress
 M: INQUISITIVE MOOSE NOISES
 + { herbs == 0 } I haven't found it[.] yet. I'll keep looking!
+    M: MOOSE URGING
 -> Menu
 * { herbs == 1 } Is this it?
 N: You show the moose the yellow-flowered herb, the only one you could find.
 M: JOYFUL MOOSE NOISES
 N: The moose grabs the plant from your hands, and lowers its head. Once again you dodge the antler-points. You hear crunching.
--> END
+-> Herb_Complete
+
+= Herb_Complete
+-> Menu
 
 = Human
-This is where human-form dialogue will go.
+D: Oh my, what a terrible fright! Thank you for getting me out of moosemode.
+
+- (Questions) N: {The Druid breathes deeply, steadying himself.|The Druid regards you attentively.}
+    * [Glad to help.] I'm glad I was able to help.
+        D: It's fortunate that you were able to find that herb! It's very rare in these parts.
+        D: Without it I would've had to trot two hundred miles back to the circle, and it wouldn't have done a bit of good for my reputation, you see.
+        -> Questions
+    * How did you get stuck[?] like that, anyway?
+        D: Cursed by a naughty wizard, I fear! Rather embarrassing actually.
+        D: It's one thing to be able to shapeshift, quite another to not be able to turn back. Quite a fright, I tell you.
+        D: I suppose I'll have to find the wizard and do something druidy to them. Wrap them in vines or something. It's really rather bothersome.
+        -> Questions
+    + Farewell, Druid.
+        D: Goodbye! May the spirits of nature look fondly upon you and so forth.
+        -> Menu
+
+=== ENGINEER ===
+    {   
+    -Barriers_Complete:
+    -> Idle  
+    -ENGINEER > 1: 
+    -> In_Progress
+    }
+
+E: What a mess, what a mess...
+    * Uh, hello?
+    E: Hm? Oh, hello.
+    * What happened here?!
+- E: Right, this business behind me?
+N: He gestures vaguely towards what appears to be a crash site of some kind.
+E: ...Someone ran their official engineering truck up a log ramp and flipped it upside down.
+    * Seems like a problem!
+    E: Oh, it is! <>
+    * And you're here to fix it?
+    E: Exactly! <>
+
+-I need to clean this site up, and that means barriers!
+E: Fortunately my-- this truck should have a set on board. Unfortunately they appear to have been scattered by the crash.
+E: Could you see if you could find them for me? There ought to be 3.
+E: I'll stay here and make sure nobody gets hurt in the absence of clear warning signage.
+-> Menu
+
+= In_Progress
+E: Wh-what truck? Oh, it's you! How're we doing with the crash barriers?
+    + { barriers == 0 } None so far[.], but I'm looking hard!
+    + { barriers == 1 } I found one[.], so far.
+    + { barriers == 2 } I've found two[.] of them!
+    * { barriers == 3 } [Found them all] I found them all! It should be safer now, I guess?
+        -> Barriers_Complete
+- { barriers < 3: Okay, good good, good, good. Ought to be another {3 - barriers} about! }
+-> Menu
+
+= Barriers_Complete
+E: Great, good! Now I can concentrate on sorting this mess out without worrying about passersby.
+E: Thank you. You have been a great help to the cause of civil engineering.
+    * You're welcome[?], I suppose?
+    * Good luck[.], Engineer. Hope you get it sorted soon!
+    
+-E: Maybe a crowbar? Or chisel the rock into a ramp?
+N: The Engineer appears to have lost track of your presence somewhat.
+-> Menu
+
+= Idle
+ E: {I... don't suppose you happen to have a crane handy, do you? | Have you spotted any dynamite around and would you tell me if you had? | If only I had another truck... }
+    + Sorry.
+    E: Oh, it's okay. I'm sure my engineering prowess will pay off soon.
+    -> Menu
+    + You'll get there![] You're an Engineer, after all.
+    E: Thank you! You're right,  I shall redouble my efforts.
+    -> Menu
+
+=== DOG ===
+ D: {~ Ruff! | Bork! | Arf ruff! | Ruff. Arf? | Barkbark! Barkbarkbark! | BOOF. | Gruff? | Meow? | Arf! }
+    + Good boy![] Good doggo! Yes!
+        D: Borf!!
+        N: The dog wags his tail enthusiastically. His expression and general demeanor seem to say "What?! ME?!? AMAZING!!"
+        -> Menu
+    + [Pet the dog.]
+        D: Rrf.
+        N: The Dog does not purr, but he does seem to appreciate the attention nonetheless.
+        -> Menu
 
 === escape ===
 I ran through the forest, the dogs snapping at my heels.
