@@ -17,8 +17,9 @@ public class Farmer : Character
     {
         if (other.CompareTag("Player") && PickupType.Pickup == PickupTypes.Chicken)
         {
-            player.DropOff();
+            
             GameManager.Instance.ChickensCollected++;
+            player.DropOff();
             moveEnabled = false;
             ActivateChicken();
         }

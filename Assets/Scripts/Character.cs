@@ -72,7 +72,8 @@ public class Character : MonoBehaviour
     {
         if (player.objectInRange == gameObject)
         {
-            Debug.Log("Attempted to start a conversation with " + gameObject.name);
+            DialogueManager.DialogueInterface.DisplayDialogue(gameObject.name);
+            //Debug.Log("Attempted to start a conversation with " + gameObject.name);
         }
     }
 

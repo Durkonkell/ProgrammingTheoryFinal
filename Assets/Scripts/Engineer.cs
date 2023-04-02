@@ -19,7 +19,7 @@ public class Engineer : Character
         float distance = Vector3.Distance(transform.position, debris.transform.position);
         if (distance > 10)
         {
-            Debug.Log("Sending engineer back to site.");
+            //Debug.Log("Sending engineer back to site.");
             Vector3 newDirection = debris.transform.position - transform.position;
             direction = newDirection.normalized;
         }
@@ -33,8 +33,9 @@ public class Engineer : Character
     {
         if (other.CompareTag("Player") && PickupType.Pickup == PickupTypes.Barrier)
         {
-            player.DropOff();
+            
             GameManager.Instance.BarriersCollected++;
+            player.DropOff();
 
             BarrierInstall();
         }

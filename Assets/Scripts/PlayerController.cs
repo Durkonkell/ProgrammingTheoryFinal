@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,9 +36,9 @@ public class PlayerController : MonoBehaviour
         Move();
         Interact();
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("PickupType.Pickup = " + PickupType.Pickup);
+            SceneManager.LoadScene("Menu");
         }
     }
 
@@ -50,25 +51,25 @@ public class PlayerController : MonoBehaviour
             switch (PickupType.Pickup)
             {
                 case PickupTypes.Chicken:
-                    Debug.Log("Picked up chicken");
+                    //Debug.Log("Picked up chicken");
                     objectInRange = null;
                     invChicken.SetActive(true);
                     animController.SetInteger("WeaponType_int", 1);
                     break;
                 case PickupTypes.Barrier:
-                    Debug.Log("Picked up barrier");
+                    //Debug.Log("Picked up barrier");
                     objectInRange = null;
                     invBarrier.SetActive(true);
                     animController.SetInteger("WeaponType_int", 1);
                     break;
                 case PickupTypes.Herb:
-                    Debug.Log("Picked up herb");
+                    //Debug.Log("Picked up herb");
                     objectInRange = null;
                     invHerb.SetActive(true);
                     animController.SetInteger("WeaponType_int", 1);
                     break;
                 default:
-                    Debug.Log("No pickup found");
+                    //Debug.Log("No pickup found");
                     break;
             }
         }
@@ -82,6 +83,8 @@ public class PlayerController : MonoBehaviour
 
         PickupType.Pickup = PickupTypes.None;
         animController.SetInteger("WeaponType_int", 0);
+
+        DialogueManager.DialogueInterface.UpdateInkVariables();
     }
 
     void Move()

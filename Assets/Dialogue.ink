@@ -5,9 +5,14 @@ VAR chickens = 0
 VAR barriers = 0
 VAR herbs = 0
 
--> Menu
+VAR mooseTransform = false
+
+-> FARMER
 
 ==Menu==
+-> END
+
+/*
 Main Menu
 + Farmer 
 -> FARMER
@@ -24,10 +29,10 @@ Main Menu
  + Increment barriers
  ~barriers++
 
-- ->Menu
+- ->Menu 
+*/
 
 ===FARMER===
-// Put some conditional here to divert to Greet 2
     { 
     - Chickens_Complete:
     -> Idle
@@ -52,7 +57,7 @@ F: Have been up wi' cows. Dozed off for a spell, dare say. Now've got nowt for c
 F: Aye.
 * [How unfortunate!] What an unfortunate turn of events!
 F: Aye.
-* I'll help[.], of course! 
+* I'll help[!], of course! 
 
 -F: Keep an eye out, aye?
 
@@ -77,7 +82,7 @@ F: Aye.
 ->Menu
 
 = Idle
-F: Ho chick. Chick chick chick. Good chick.
+F: Hey chick. Chick chick chick. Good chick.
 ->END
 
 === DRUID ===
@@ -87,9 +92,9 @@ F: Ho chick. Chick chick chick. Good chick.
     - DRUID > 1:
     -> In_Progress
     }
-N: The moose watches you approach. It doesn't seem spooked or agressive, but merely turns to face you, head tilted slightly to expose a single black eye.
+N: The moose watches you approach. It doesn't seem spooked or aggressive, but merely turns to face you, head tilted slightly to expose a single black eye.
     * Hello, Moose?
-    * Are you a real moose[?], or one of those Druids who shapeshift?
+    * Are you a real moose[?], or one of those Druids who likes to shapeshift?
 
 -M: MOOSE NOISES
 
@@ -101,7 +106,7 @@ N: Unfortunately, you do not speak moose.
 N: The moose locks eyes with you and appears to focus. At once, the world fades and you see before you a distinctive plant with bright yellow flowers.
     * You... want me to find this plant?
     N: The moose nods its head at you enthusiastically. You move out of the way of an antler.
-    * Did you do that[?], or am I hallucinating?
+    * Did you do that[?], with the plant?
     N: The moose bobs its head.
         ** What about this plant?
         N: The moose points a hoof in one direction and then another.
@@ -125,6 +130,7 @@ N: The moose grabs the plant from your hands, and lowers its head. Once again yo
 -> Herb_Complete
 
 = Herb_Complete
+~mooseTransform = true
 -> Menu
 
 = Human
@@ -171,7 +177,7 @@ E: I'll stay here and make sure nobody gets hurt in the absence of clear warning
 -> Menu
 
 = In_Progress
-E: Wh-what truck? Oh, it's you! How're we doing with the crash barriers?
+E: {Wh-what truck? Oh, it's you! How're we doing with the crash barriers? | Any luck?}
     + { barriers == 0 } None so far[.], but I'm looking hard!
     + { barriers == 1 } I found one[.], so far.
     + { barriers == 2 } I've found two[.] of them!
@@ -181,13 +187,13 @@ E: Wh-what truck? Oh, it's you! How're we doing with the crash barriers?
 -> Menu
 
 = Barriers_Complete
-E: Great, good! Now I can concentrate on sorting this mess out without worrying about passersby.
+E: Great, good, excellent! Now I can concentrate on sorting this mess out without worrying about passersby.
 E: Thank you. You have been a great help to the cause of civil engineering.
-    * You're welcome[?], I suppose?
+    * You're welcome[?], I guess?
     * Good luck[.], Engineer. Hope you get it sorted soon!
     
--E: Maybe a crowbar? Or chisel the rock into a ramp?
-N: The Engineer appears to have lost track of your presence somewhat.
+-E: Hmm. Maybe a crowbar? Or chisel the rock into a ramp?
+N: The Engineer appears to have lost track of your presence somewhat. He continues to mutter, apparently considering his options.
 -> Menu
 
 = Idle
@@ -200,30 +206,13 @@ N: The Engineer appears to have lost track of your presence somewhat.
     -> Menu
 
 === DOG ===
- D: {~ Ruff! | Bork! | Arf ruff! | Ruff. Arf? | Barkbark! Barkbarkbark! | BOOF. | Gruff? | Meow? | Arf! }
+ Dog: {~ Ruff! | Bork! | Arf ruff! | Ruff. Arf? | Barkbark! Barkbarkbark! | BOOF. | Gruff? | Meow? | Arf! }
     + Good boy![] Good doggo! Yes!
-        D: Borf!!
+        Dog: Borf!!
         N: The dog wags his tail enthusiastically. His expression and general demeanor seem to say "What?! ME?!? AMAZING!!"
         -> Menu
     + [Pet the dog.]
-        D: Rrf.
+        Dog: Rrf.
         N: The Dog does not purr, but he does seem to appreciate the attention nonetheless.
         -> Menu
 
-=== escape ===
-I ran through the forest, the dogs snapping at my heels.
-
-	* 	I checked the jewels[] were still in my pocket, and the feel of them brought a spring to my step. <>
-
-	*  I did not pause for breath[] but kept on running. <>
-
-	*	I cheered with joy. <>
-
-- 	The road could not be much further! Mackie would have the engine running, and then I'd be safe.
-
-	*	I reached the road and looked about[]. And would you believe it?
-	* 	I should interrupt to say Mackie is normally very reliable[]. He's never once let me down. Or rather, never once, previously to that night.
-
--	The road was empty. Mackie was nowhere to be seen.
-
--> END

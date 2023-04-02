@@ -18,7 +18,7 @@ public class Pickup : MonoBehaviour
         if (PickupType.Pickup == PickupTypes.None && player.objectInRange == gameObject)
         {
             PickupType.Pickup = type;
-            Debug.Log("Collected: " + gameObject.name);
+            //Debug.Log("Collected: " + gameObject.name);
             gameObject.SetActive(false);
         }
     }

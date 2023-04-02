@@ -6,6 +6,7 @@ public class Druid : Character
 {
     [SerializeField] private GameObject druidHuman;
     [SerializeField] private GameObject druidAnimal;
+    [SerializeField] private GameObject druidGrove;
 
     [SerializeField] private ParticleSystem transformPoof;
 
@@ -16,6 +17,14 @@ public class Druid : Character
 
     protected override IEnumerator MoveRoutine(Vector3 direction)
     {
+        float distance = Vector3.Distance(transform.position, druidGrove.transform.position);
+        if (distance > 10)
+        {
+            //Debug.Log("Sending druid back to grove.");
+            Vector3 newDirection = druidGrove.transform.position - transform.position;
+            direction = newDirection.normalized;
+        }
+
         animController.SetFloat("Speed_f", 0.6f);
         yield return base.MoveRoutine(direction);
         animController.SetFloat("Speed_f", 0f);
@@ -23,9 +32,12 @@ public class Druid : Character
 
     protected override void ObjectiveComplete()
     {
-        StartCoroutine(TransformHuman());
-
         Instantiate(victoryBoom, transform.position, victoryBoom.transform.rotation);
+    }
+
+    public void TriggerTransformation()
+    {
+        StartCoroutine(TransformHuman());
     }
 
     IEnumerator TransformHuman()
@@ -44,8 +56,9 @@ public class Druid : Character
     {
         if (other.CompareTag("Player") && PickupType.Pickup == PickupTypes.Herb)
         {
-            player.DropOff();
+            
             GameManager.Instance.HerbsCollected++;
+            player.DropOff();
             moveEnabled = false;
 
             ObjectiveComplete();
