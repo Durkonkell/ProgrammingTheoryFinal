@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Button choicePrefab;
     [SerializeField] private GameObject buttonPanel;
     [SerializeField] private TextMeshProUGUI nameText;
-    private TextMeshProUGUI choiceText;
+    //private TextMeshProUGUI choiceText;
 
     private bool dialogueRunning = false;
     private bool finalLine = false;
@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogue = new Story(inkJson.text);
         DialogueInterface = this;
-        choiceText = choicePrefab.GetComponent<TextMeshProUGUI>();
+        //choiceText = choicePrefab.GetComponent<TextMeshProUGUI>();
 
         dialogue.ObserveVariable("mooseTransform", (string varName, object varValue) => ExecuteDruidTransformation());
     }
@@ -40,6 +40,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
+
         if (dialogueRunning && Input.GetMouseButtonDown(0) && dialogue.canContinue)
         {
             RunDialogue();
@@ -144,7 +145,7 @@ public class DialogueManager : MonoBehaviour
                 charName = "Farmer";
                 break;
             case "M":
-                charName = "Moose?";
+                charName = "A Moose?";
                 break;
             case "D":
                 charName = "Druid";

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private float baseSpeed = 6;
+    private readonly float baseSpeed = 6;
     private Animator animController;
 
     public event Action OnInteract;
@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public GameObject invChicken;
     public GameObject invBarrier;
     public GameObject invHerb;
+
+    private readonly float boundry = 98;
 
     // ENCAPSULATION
     public GameObject objectInRange { get; private set; } = null;
@@ -36,10 +38,12 @@ public class PlayerController : MonoBehaviour
         Move();
         Interact();
 
+        /*
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("Menu");
         }
+        */
     }
 
     void Interact()
@@ -105,7 +109,29 @@ public class PlayerController : MonoBehaviour
 
         Vector3 course = new Vector3(horz, 0, vert);
 
-        transform.Translate(course * Time.deltaTime * speed, Space.World);
+        if (transform.position.x > boundry)
+        {
+            transform.position = new Vector3 (boundry, transform.position.y, transform.position.z);
+            return;
+        }
+        else if (transform.position.x < -boundry)
+        {
+            transform.position = new Vector3(-boundry, transform.position.y, transform.position.z);
+            return;
+        }
+
+        if (transform.position.z > boundry)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, boundry);
+            return;
+        }
+        else if (transform.position.z < -(boundry - 10))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -(boundry - 10));
+            return;
+        }
+
+        transform.Translate(speed * Time.deltaTime * course, Space.World);
 
         if (course != Vector3.zero)
         {

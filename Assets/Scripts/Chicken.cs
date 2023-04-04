@@ -5,7 +5,7 @@ using UnityEngine;
 public class Chicken : Pickup
 {
     private bool moveWait = false;
-    private float speed = 3.5f;
+    private readonly float speed = 3.5f;
 
     private Animator animController;
 
@@ -59,7 +59,7 @@ public class Chicken : Pickup
 
         for (int i = 0; i < framesToMove; i++)
         {
-            transform.Translate(direction * Time.deltaTime * speed, Space.World);
+            transform.Translate(speed * Time.deltaTime * direction, Space.World);
             yield return new WaitForFixedUpdate();
         }
         animController.SetFloat("Speed_f", 0f);

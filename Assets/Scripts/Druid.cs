@@ -44,7 +44,7 @@ public class Druid : Character
     {
         moveEnabled = false;
         animController.SetBool("Eat_b", true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6.5f);
 
         Instantiate(transformPoof, transform.position, transformPoof.transform.rotation);
 

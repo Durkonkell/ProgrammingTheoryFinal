@@ -34,7 +34,7 @@ public class Farmer : Character
         }
         if (GameManager.Instance.ChickensCollected == 3)
         {
-            Debug.Log("Detected all chickens collected");
+            //Debug.Log("Detected all chickens collected");
             ObjectiveComplete();
         }
     }

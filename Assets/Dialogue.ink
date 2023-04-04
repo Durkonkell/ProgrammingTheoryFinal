@@ -67,7 +67,7 @@ F: Aye.
 { chickens == 1:  F: Oh, aye. It's a chicken, that is. }
 { chickens == 2:  F: Good, good, Got some seed here for you. }
 { chickens == 2:  F: I mean the chickens. You'll not be wanting seed. }
-{ chickens == 3:  F: Let's see. Oh, aye. That's them chickens, that is. }
+{ chickens == 3:  F: Let's see. Oh, aye. That's them chickens. }
 
 { chickens < 3:  F: Ought to be another { 3 - chickens } about. }
 
@@ -92,7 +92,7 @@ F: Hey chick. Chick chick chick. Good chick.
     - DRUID > 1:
     -> In_Progress
     }
-N: The moose watches you approach. It doesn't seem spooked or aggressive, but merely turns to face you, head tilted slightly to expose a single black eye.
+N: The moose watches you approach. It doesn't seem to be spooked or aggressive, but merely turns to face you, head tilted slightly to expose a single black eye.
     * Hello, Moose?
     * Are you a real moose[?], or one of those Druids who likes to shapeshift?
 
@@ -105,14 +105,14 @@ N: Unfortunately, you do not speak moose.
 - M: DETERMINED MOOSE NOISES
 N: The moose locks eyes with you and appears to focus. At once, the world fades and you see before you a distinctive plant with bright yellow flowers.
     * You... want me to find this plant?
-    N: The moose nods its head at you enthusiastically. You move out of the way of an antler.
+    N: The moose nods its head at you enthusiastically. You move briskly out of the way of an antler.
     * Did you do that[?], with the plant?
     N: The moose bobs its head.
-        ** What about this plant?
+        ** [But why?] Okay, but... why show me this plant?
         N: The moose points a hoof in one direction and then another.
         M: PLAINTIVE MOOSE NOISES
             *** You want me to find it!
-            N: The moose nods aggressively. You quickly evade the point of an antler.
+            N: The moose nods aggressively. You quickly step back to evade the point of an antler.
             M: ENTHUSIASTIC MOOSE NOISES
             
     - * Alright then.[] I'll have a look and see what I can find.
@@ -126,7 +126,7 @@ M: INQUISITIVE MOOSE NOISES
 * { herbs == 1 } Is this it?
 N: You show the moose the yellow-flowered herb, the only one you could find.
 M: JOYFUL MOOSE NOISES
-N: The moose grabs the plant from your hands, and lowers its head. Once again you dodge the antler-points. You hear crunching.
+N: The moose grabs the plant from your hands, and lowers its head. This time you step back several paces to avoid another close encounter with those antler-points. You hear crunching.
 -> Herb_Complete
 
 = Herb_Complete

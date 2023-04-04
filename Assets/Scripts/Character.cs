@@ -63,7 +63,7 @@ public class Character : MonoBehaviour
 
         for (int i = 0; i < framesToMove; i++)
         {
-            transform.Translate(direction * Time.deltaTime * speed, Space.World);
+            transform.Translate(speed * Time.deltaTime * direction, Space.World);
             yield return new WaitForFixedUpdate();
         }
     }
@@ -79,7 +79,7 @@ public class Character : MonoBehaviour
 
     protected virtual void ObjectiveComplete()
     {
-        Debug.Log("Objective Complete called: " + gameObject.name);
+        //Debug.Log("Objective Complete called: " + gameObject.name);
         animController.SetBool("Jump_b", true);
 
         Instantiate(victoryBoom, transform.position, victoryBoom.transform.rotation);

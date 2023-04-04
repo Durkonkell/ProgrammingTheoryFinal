@@ -50,7 +50,8 @@ public class Engineer : Character
         }
         if (GameManager.Instance.BarriersCollected == 3)
         {
-            Debug.Log("Detected all barriers collected");
+            //Debug.Log("Detected all barriers collected");
+
             // ABSTRACTION
             ObjectiveComplete();
         }
