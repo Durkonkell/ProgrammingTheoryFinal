@@ -15,6 +15,7 @@ public class Druid : Character
         speed = 8f;
     }
 
+    //The druid is fast but shouldn't get too far from his grove; send him back if he wanders too much
     protected override IEnumerator MoveRoutine(Vector3 direction)
     {
         float distance = Vector3.Distance(transform.position, druidGrove.transform.position);
@@ -35,6 +36,7 @@ public class Druid : Character
         Instantiate(victoryBoom, transform.position, victoryBoom.transform.rotation);
     }
 
+    //Called from DialogueManager
     public void TriggerTransformation()
     {
         StartCoroutine(TransformHuman());

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    //This is the base class for all NPCs
+
     private bool moveWait = false;
     protected bool moveEnabled = true;
     protected Animator animController;
@@ -31,13 +33,14 @@ public class Character : MonoBehaviour
         }
     }
 
+    //Have the character move in a random direction periodically.
     protected virtual IEnumerator Wander()
     {
         moveWait = true;
         float delay = Random.Range(3f, 7f);
         yield return new WaitForSeconds(delay);
         int diceroll = Random.Range(1, 7);
-        //Debug.Log("Dice Roll: " + diceroll);
+
         if (diceroll > 3 && moveEnabled)
         {
             Vector3 direction = RandomDirection();
@@ -46,6 +49,7 @@ public class Character : MonoBehaviour
         moveWait = false;
     }
 
+    //Generate a random X/Z vector
     protected Vector3 RandomDirection()
     {
         float randomAngle = Random.Range(0f, 360f);
@@ -55,6 +59,7 @@ public class Character : MonoBehaviour
         return direction;
     }
 
+    //Move the character in the random direction for a randomised number of fixed updates
     protected virtual IEnumerator MoveRoutine(Vector3 direction)
     {
         int framesToMove = Random.Range(20, 80);
@@ -68,6 +73,7 @@ public class Character : MonoBehaviour
         }
     }
 
+    //If the player presses E, check whether this character is the closest object and call DisplayDialogue if so
     protected void ConversationStart()
     {
         if (player.objectInRange == gameObject)

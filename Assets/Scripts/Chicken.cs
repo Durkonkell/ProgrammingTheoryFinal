@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Chicken : Pickup
 {
+    //Chickens move around and have animations unlike other Pickups
+
     private bool moveWait = false;
     private readonly float speed = 3.5f;
 
@@ -36,6 +38,7 @@ public class Chicken : Pickup
         }
         else if (diceroll == 3)
         {
+            //Small chance to peck at the ground instead of moving
             StartCoroutine(Peck());
         }
         moveWait = false;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
+    //Carry the player's name over from the main menu
+
     public static DataManager Instance;
 
     public string playerName;

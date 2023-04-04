@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+    //Base class for all pickup objects
+
     public PickupTypes type;
     protected PlayerController player;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        
+        //Subscribe Collect() to the OnInteract event in PlayerController
         player.OnInteract += Collect;
     }
 

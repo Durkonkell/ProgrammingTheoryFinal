@@ -5,15 +5,19 @@ using UnityEngine;
 // INHERITANCE
 public class Engineer : Character
 {
+    //Engineer specific changes and additions to Character base class
+
     [SerializeField] private GameObject debris;
     private int barrierIndex = 3;
 
     private void Awake()
     {
+        //We want the engineer to be slower that the base speed
         speed = 1f;
     }
 
     // POLYMORPHISM
+    // The engineer has to stay close to his site, so override the base MoveRoutine
     protected override IEnumerator MoveRoutine(Vector3 direction)
     {
         float distance = Vector3.Distance(transform.position, debris.transform.position);

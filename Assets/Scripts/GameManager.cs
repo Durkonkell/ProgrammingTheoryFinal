@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //A central location to keep score that other classes can access
+
     public static GameManager Instance;
 
     public int ChickensCollected = 0;

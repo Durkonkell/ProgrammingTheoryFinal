@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        //These are pickup objects attached to the player character and set to inactive
         invChicken = transform.GetChild(5).gameObject;
         invBarrier = transform.GetChild(6).gameObject;
         invHerb = transform.GetChild(7).gameObject;
@@ -38,18 +39,19 @@ public class PlayerController : MonoBehaviour
         Move();
         Interact();
 
-        /*
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("Menu");
         }
-        */
+
     }
 
+    //Controls picking up objects and interacting with NPCs
     void Interact()
     {
         if (Input.GetKeyDown(KeyCode.E) && OnInteract != null && objectInRange != null)
         {
+            //Trigger the OnInteract event with is detected by the Pickup and Character scripts
             OnInteract();
 
             switch (PickupType.Pickup)
@@ -79,6 +81,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //When an NPC detects the player approaching them with a pickup, this is called
     public void DropOff()
     {
         invChicken.SetActive(false);
@@ -109,6 +112,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 course = new Vector3(horz, 0, vert);
 
+        //Invisible walls!
         if (transform.position.x > boundry)
         {
             transform.position = new Vector3 (boundry, transform.position.y, transform.position.z);
@@ -144,6 +148,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Detect if we're close enough to an object or NPC to interact with it
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Pickup") || other.CompareTag("Character"))
